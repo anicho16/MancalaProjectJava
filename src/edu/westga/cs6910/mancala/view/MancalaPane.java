@@ -77,10 +77,11 @@ public class MancalaPane extends BorderPane {
 	}
 	
 	private void addStatusPane() {
+		//Need to style correctly in center
 		HBox statusBox = new HBox();
 		
 		this.pnGameInfo = new StatusPane(this.theGame);
-		statusBox.getChildren().add(this.pnHumanPlayer);
+		statusBox.getChildren().add(this.pnGameInfo);
 		
 		this.pnContent.add(statusBox, 0, 3);
 	}
