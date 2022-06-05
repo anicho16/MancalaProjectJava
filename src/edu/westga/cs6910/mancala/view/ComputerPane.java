@@ -46,7 +46,6 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	}
 	
 	private void buildPane() {
-		//TODO: build this more
 		HBox topBox = new HBox();
 		topBox.getChildren().add(new Label("Computer"));
 		this.add(topBox, 0, 0);
@@ -54,13 +53,13 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		this.setHgap(50);
 
 		this.createUserInteractionArea();
-
+		
 		int column = 0;
-		for (column = 0; column < this.theGame.getBoardSize() / 2 - 1; column++) {
+		this.add(new PitPane(column, true, this.theGame), 0, 1);
+
+		for (column = 1; column < this.theGame.getBoardSize() / 2; column++) {
 			this.add(new PitPane(column, false, this.theGame), column + 1, 1);
 		}
-
-		this.add(new PitPane(column, true, this.theGame), column + 1, 1);
 	}
 	
 	private void createUserInteractionArea() {
