@@ -54,11 +54,12 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 
 		this.createUserInteractionArea();
 		
-		int column = 0;
-		this.add(new PitPane(column, true, this.theGame), 0, 1);
+		int pit = 7;
+		this.add(new PitPane(pit, true, this.theGame), 0, 1);
 
-		for (column = 1; column < this.theGame.getBoardSize() / 2; column++) {
-			this.add(new PitPane(column, false, this.theGame), column + 1, 1);
+		for (int column = 1; column < this.theGame.getBoardSize() / 2; column++) {
+			this.add(new PitPane(pit - 1, false, this.theGame), column + 1, 1);
+			pit--;
 		}
 	}
 	
@@ -77,7 +78,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 
 	@Override
 	public void invalidated(Observable arg0) {
-		// TODO: DONE DONE Disable this Pane if it is no longer the computer's turn, enable it if
+		// Disable this Pane if it is no longer the computer's turn, enable it if
 		// it is the computer's turn
 		if (this.theGame.getIsGameOver()) {
 			this.setDisable(true);
@@ -102,12 +103,14 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		 */
 		@Override
 		public void handle(ActionEvent arg0) {
-			// TODO: if the game isn't finished: 
+			// if the game isn't finished: 
 			//		 - Tell theGame to play a move.  Because this is
 			//		   the computer playing, just pass -1 as the 
 			//		   pit number
+			if (!ComputerPane.this.theGame.getIsGameOver()) {
+				ComputerPane.this.theGame.play(-1);
 			
-
+			}
 		}
 	}
 }
