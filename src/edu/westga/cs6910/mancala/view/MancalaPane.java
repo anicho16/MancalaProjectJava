@@ -4,6 +4,7 @@ import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
@@ -15,8 +16,8 @@ import javafx.scene.layout.Pane;
  * Defines a GUI for the Mancala game.
  * Started by CS6910.  Fill your name into Javadoc below
  * 
- * @author 	
- * @version 
+ * @author 	Amber Nicholas
+ * @version 6.5.22
  * 
  */
 public class MancalaPane extends BorderPane {
@@ -41,15 +42,10 @@ public class MancalaPane extends BorderPane {
 		
 		this.pnContent = new GridPane();
 		
-		this.addFirstPlayerChooserPane(theGame);		
-		
-		// TODO: 1. Using the 'first player chooser pane' as a guide
-		//  Create an HBox with the appropriate style, then make a computer
-		//	player pane and add it to the HBox. Finally add the HBox to the content pane	
-		
-		// TODO: 2. Using the other panes as a guide, create and add a human pane
-
-		// TODO: 3. Using the other panes as a guide, create and add a status pane	
+		this.addFirstPlayerChooserPane(theGame);
+		this.addComputerPane();
+		this.addHumanPane();
+		this.addStatusPane();
 		
 		this.setCenter(this.pnContent);
 	}
@@ -60,6 +56,33 @@ public class MancalaPane extends BorderPane {
 		this.pnChooseFirstPlayer = new NewGamePane(theGame);
 		topBox.getChildren().add(this.pnChooseFirstPlayer);
 		this.pnContent.add(topBox, 0, 0);
+	}
+	
+	private void addComputerPane() {
+		HBox computerBox = new HBox();
+		
+		this.pnComputerPlayer = new ComputerPane(this.theGame);
+		computerBox.getChildren().add(this.pnComputerPlayer);
+		
+		this.pnContent.add(computerBox, 0, 1);
+	}
+	
+	private void addHumanPane() {
+		HBox humanBox = new HBox();
+		
+		this.pnHumanPlayer = new HumanPane(this.theGame);
+		humanBox.getChildren().add(this.pnHumanPlayer);
+		
+		this.pnContent.add(humanBox, 0, 2);
+	}
+	
+	private void addStatusPane() {
+		HBox statusBox = new HBox();
+		
+		this.pnGameInfo = new StatusPane(this.theGame);
+		statusBox.getChildren().add(this.pnHumanPlayer);
+		
+		this.pnContent.add(statusBox, 0, 3);
 	}
 	
 	/*
@@ -88,12 +111,15 @@ public class MancalaPane extends BorderPane {
 			this.radHumanPlayer = new RadioButton(this.theHuman.getName() + " first");	
 			this.radHumanPlayer.setOnAction(new HumanFirstListener());
 			
-			// TODO: Instantiate the computer player button and add 
-			//		 ComputerFirstListener as its action listener.
+			this.radComputerPlayer = new RadioButton(this.theComputer.getName() + " first");
+			this.radComputerPlayer.setOnAction(new ComputerFirstListener());
 			
-			// TODO: Create a ToggleGroup and add the 2 radio buttons to it.
+			ToggleGroup players = new ToggleGroup();
+			this.radComputerPlayer.setToggleGroup(players);
+			this.radHumanPlayer.setToggleGroup(players);
 			
-			// TODO: Add the 2 radio buttons to this pane.
+			this.add(this.radComputerPlayer, 1, 0);
+			this.add(this.radHumanPlayer, 0, 0);
 			
 		}
 		
@@ -123,10 +149,9 @@ public class MancalaPane extends BorderPane {
 			 */
 			@Override
 			public void handle(ActionEvent event) {
+				MancalaPane.this.pnHumanPlayer.setDisable(false);
 				MancalaPane.this.pnChooseFirstPlayer.setDisable(true);
-				// TODO: Enable the human player panel and start a game
-				//		 with the human playing first.
-
+				MancalaPane.this.theGame.startNewGame(NewGamePane.this.theHuman);
 			}
 		}
 	}

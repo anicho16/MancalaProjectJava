@@ -9,8 +9,8 @@ import javafx.beans.property.SimpleObjectProperty;
  * Game represents a Mancala game.  
  * Started by CS6910.  Fill your name into Javadoc below
  * 
- * @author 	
- * @version 
+ * @author 	Amber Nicholas
+ * @version 6.5.22
  */
 public class Game implements Observable {
 	private int[] theBoard;

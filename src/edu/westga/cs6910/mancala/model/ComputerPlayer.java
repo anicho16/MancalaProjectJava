@@ -12,8 +12,8 @@ package edu.westga.cs6910.mancala.model;
  * ComputerPlayer represents a very simple automated player in the game Mancala.
  * It always selects the closest pit for stones to be distributed
  * 
- * @author 	CS6910
- * @version Summer 2022
+ * @author 	CS6910 Amber Nicholas
+ * @version Summer 2022 6.5.22
  */
 public class ComputerPlayer implements Player {
 	private static final String NAME = "Simple computer";
