@@ -10,8 +10,8 @@ import javafx.scene.layout.GridPane;
  * Defines the panel that displays a pit with its stones
  * Started by CS6910.  Fill your name into Javadoc below
  * 
- * @author 	
- * @version 
+ * @author 	Amber Nicholas
+ * @version 6.5.22
  */
 public class PitPane extends GridPane implements InvalidationListener {
 	private Label lblPitNumber;
@@ -60,8 +60,9 @@ public class PitPane extends GridPane implements InvalidationListener {
 
 	@Override
 	public void invalidated(Observable theObservable) {
-		// TODO: Display the current number of stones inside
+		// Display the current number of stones inside
 		//		 this pit
+		this.lblNumberOfStones.setText("Stones: " + this.theGame.getStones(this.pitNumber));
 
 	}
 }
