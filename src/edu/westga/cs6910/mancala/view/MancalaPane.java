@@ -4,6 +4,7 @@ import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -60,7 +61,7 @@ public class MancalaPane extends BorderPane {
 	
 	private void addComputerPane() {
 		HBox computerBox = new HBox();
-		
+		computerBox.getStyleClass().add("pane-border");
 		this.pnComputerPlayer = new ComputerPane(this.theGame);
 		computerBox.getChildren().add(this.pnComputerPlayer);
 		
@@ -69,7 +70,7 @@ public class MancalaPane extends BorderPane {
 	
 	private void addHumanPane() {
 		HBox humanBox = new HBox();
-		
+		humanBox.getStyleClass().add("pane-border");
 		this.pnHumanPlayer = new HumanPane(this.theGame);
 		humanBox.getChildren().add(this.pnHumanPlayer);
 		
@@ -77,9 +78,9 @@ public class MancalaPane extends BorderPane {
 	}
 	
 	private void addStatusPane() {
-		//Need to style correctly in center
 		HBox statusBox = new HBox();
-		
+		statusBox.setAlignment(Pos.CENTER);
+		statusBox.getStyleClass().add("pane-border");
 		this.pnGameInfo = new StatusPane(this.theGame);
 		statusBox.getChildren().add(this.pnGameInfo);
 		
