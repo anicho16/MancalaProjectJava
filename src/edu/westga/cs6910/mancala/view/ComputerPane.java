@@ -16,6 +16,8 @@ import javafx.scene.layout.HBox;
  * take its turn and that displays the setup of this player's side
  * of the board
  * 
+ * @author 	Amber Nicholas
+ * @version 6.5.22
  */
 public class ComputerPane extends GridPane implements InvalidationListener {
 
@@ -32,18 +34,33 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	 * @requires 	theGame != null
 	 */
 	public ComputerPane(Game theGame) {
+		if (theGame == null) {
+			throw new IllegalArgumentException("Invalid Game object");
+		}
+		
 		this.theGame = theGame;
-		
-		// TODO: Add this object as an listener of the Game.
-		
+		this.theGame.addListener(this);
 		this.theComputer = this.theGame.getComputerPlayer();
 		
 		this.buildPane();
 	}
 	
 	private void buildPane() {
-		// TODO: Using the other pane classes as a model, build this pane.
+		//TODO: build this more
+		HBox topBox = new HBox();
+		topBox.getChildren().add(new Label("Computer"));
+		this.add(topBox, 0, 0);
 
+		this.setHgap(50);
+
+		this.createUserInteractionArea();
+
+		int column = 0;
+		for (column = 0; column < this.theGame.getBoardSize() / 2 - 1; column++) {
+			this.add(new PitPane(column, false, this.theGame), column + 1, 1);
+		}
+
+		this.add(new PitPane(column, true, this.theGame), column + 1, 1);
 	}
 	
 	private void createUserInteractionArea() {
@@ -61,8 +78,15 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 
 	@Override
 	public void invalidated(Observable arg0) {
-		// TODO: Disable this Pane if it is no longer the computer's turn, enable it if
+		// TODO: DONE DONE Disable this Pane if it is no longer the computer's turn, enable it if
 		// it is the computer's turn
+		if (this.theGame.getIsGameOver()) {
+			this.setDisable(true);
+			return;
+		}
+
+		boolean myTurn = this.theGame.getCurrentPlayer() == this.theComputer;
+		this.setDisable(!myTurn);
 
 	}
 
@@ -83,6 +107,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 			//		 - Tell theGame to play a move.  Because this is
 			//		   the computer playing, just pass -1 as the 
 			//		   pit number
+			
 
 		}
 	}
