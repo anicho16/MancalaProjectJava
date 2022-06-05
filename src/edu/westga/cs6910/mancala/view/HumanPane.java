@@ -20,8 +20,8 @@ import javafx.scene.layout.HBox;
  * turn.
  * Started by CS6910.  Fill your name into Javadoc below
  * 
- * @author 	
- * @version 
+ * @author 	Amber Nicholas
+ * @version 6.5.22
  */
 public class HumanPane extends GridPane implements InvalidationListener {
 	private ComboBox<String> cmbPitChoice;
@@ -121,12 +121,29 @@ public class HumanPane extends GridPane implements InvalidationListener {
 		 * @return the selected pit number, if valid -1, otherwise
 		 */
 		private int getSelectedPitNumber() {
-			// TODO: Check to be sure that the user selected a valid pit
+			// Check to be sure that the user selected a valid pit
 			// (one that has a pit number with stones inside)
 			// If it is an invalid pit, show an Alert
 			// to offer a descriptive error message so that they'll
 			// know what went wrong and how to fix it.
-			return -1;
+			
+			int pitSelection = HumanPane.this.cmbPitChoice.getSelectionModel().getSelectedIndex();
+			
+			Alert noPitSelectedAlert = new Alert(AlertType.ERROR);
+			noPitSelectedAlert.setContentText("You must select a pit first.");
+			
+			Alert noStonesInPitAlert = new Alert(AlertType.ERROR);
+			noStonesInPitAlert.setContentText("The pit does not contain any stone.");
+			
+			if (pitSelection == 0) {
+				noPitSelectedAlert.show();
+				return -1;
+			} else if (HumanPane.this.theGame.getStones(pitSelection - 1) == 0) {
+				noStonesInPitAlert.show();
+				return -1;
+			} else {
+				return pitSelection - 1;
+			}
 		}
 	}
 }
