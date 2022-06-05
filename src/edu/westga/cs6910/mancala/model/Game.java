@@ -6,10 +6,10 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 /**
- * Game represents a Mancala game.  
- * Started by CS6910.  Fill your name into Javadoc below
+ * Game represents a Mancala game. Started by CS6910. Fill your name into
+ * Javadoc below
  * 
- * @author 	Amber Nicholas
+ * @author Amber Nicholas
  * @version 6.5.22
  */
 public class Game implements Observable {
@@ -61,10 +61,20 @@ public class Game implements Observable {
 		}
 		// Take the stones currently located in the
 		// pit specified and distribute them, one at
-		// a time into each pit (including current player's store, but not opponent's store)
+		// a time into each pit (including current player's store, but not opponent's
+		// store)
 		// in counter-clockwise order
-		this.theBoard[pitNumber] -= 1;
-		this.theBoard[pitNumber + 1] += 1;
+
+		int iterator = 0;
+
+		if (pitNumber == 2 || pitNumber == 6) {
+			this.theBoard[pitNumber + 1] += this.theBoard[pitNumber];
+		} else {
+			for (iterator = 0; iterator < this.theBoard[pitNumber]; iterator++) {
+				this.theBoard[pitNumber + iterator] += 1;
+			}
+		}
+		this.theBoard[pitNumber] = 0;
 	}
 
 	/**
@@ -140,10 +150,10 @@ public class Game implements Observable {
 		currentPlayer.takeTurn(pitChoice);
 
 		this.determineIfGameIsOver();
-		
+
 		if (this.isGameOver) {
 			this.determineWinner();
-			this.currentPlayerObject.setValue(null);			
+			this.currentPlayerObject.setValue(null);
 		} else {
 			this.swapWhoseTurn();
 		}
