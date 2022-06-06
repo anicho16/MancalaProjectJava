@@ -17,10 +17,9 @@ import javafx.scene.layout.HBox;
 /**
  * Defines the panel that displays the setup of this player's side of the board.
  * It also allows the user to select the Pit Number to take the stones on their
- * turn.
- * Started by CS6910.  Fill your name into Javadoc below
+ * turn. Started by CS6910. Fill your name into Javadoc below
  * 
- * @author 	Amber Nicholas
+ * @author Amber Nicholas
  * @version 6.5.22
  */
 public class HumanPane extends GridPane implements InvalidationListener {
@@ -85,7 +84,7 @@ public class HumanPane extends GridPane implements InvalidationListener {
 		interactionPane.add(this.btnTakeTurn, 0, 1);
 
 		this.add(interactionPane, 0, 1);
-		
+
 		this.setDisable(true);
 	}
 
@@ -123,20 +122,14 @@ public class HumanPane extends GridPane implements InvalidationListener {
 		 * @return the selected pit number, if valid -1, otherwise
 		 */
 		private int getSelectedPitNumber() {
-			// Check to be sure that the user selected a valid pit
-			// (one that has a pit number with stones inside)
-			// If it is an invalid pit, show an Alert
-			// to offer a descriptive error message so that they'll
-			// know what went wrong and how to fix it.
-			
 			int pitSelection = HumanPane.this.cmbPitChoice.getSelectionModel().getSelectedIndex();
-			
+
 			Alert noPitSelectedAlert = new Alert(AlertType.ERROR);
 			noPitSelectedAlert.setContentText("You must select a pit first.");
-			
+
 			Alert noStonesInPitAlert = new Alert(AlertType.ERROR);
 			noStonesInPitAlert.setContentText("The pit does not contain any stone.");
-			
+
 			if (pitSelection == 0) {
 				noPitSelectedAlert.show();
 				return -1;

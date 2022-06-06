@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 /**
  * Driver for the application. Creates the GUI and shows it.
  * 
- * @author 	CS6910 
- * @version Summer 
+ * @author CS6910
+ * @version Summer
  *
  */
 public class Main extends Application {
@@ -30,8 +30,7 @@ public class Main extends Application {
 	/**
 	 * Entry point into the application
 	 * 
-	 * @param args
-	 *            Not used
+	 * @param args Not used
 	 */
 	public static void main(String[] args) {
 		launch(args);
