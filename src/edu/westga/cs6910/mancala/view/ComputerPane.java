@@ -74,6 +74,8 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		interactionPane.getChildren().add(this.btnTakeTurn);
 		
 		this.add(interactionPane, this.theGame.getBoardSize() / 2 + 1, 1);
+		
+		this.setDisable(true);
 	}
 
 	@Override
@@ -108,7 +110,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 			//		   the computer playing, just pass -1 as the 
 			//		   pit number
 			if (!ComputerPane.this.theGame.getIsGameOver()) {
-				ComputerPane.this.theGame.play(-1);
+				ComputerPane.this.theGame.play(6);
 			
 			}
 		}

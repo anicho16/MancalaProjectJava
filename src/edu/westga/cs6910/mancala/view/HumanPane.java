@@ -85,6 +85,8 @@ public class HumanPane extends GridPane implements InvalidationListener {
 		interactionPane.add(this.btnTakeTurn, 0, 1);
 
 		this.add(interactionPane, 0, 1);
+		
+		this.setDisable(true);
 	}
 
 	@Override
