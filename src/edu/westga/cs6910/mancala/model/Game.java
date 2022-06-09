@@ -59,16 +59,87 @@ public class Game implements Observable {
 		if (pitNumber < 0) {
 			throw new IllegalArgumentException("Pit number cannot be negative");
 		}
-		int iterator = 0;
 
-		if (pitNumber == 2 || pitNumber == 6) {
-			this.theBoard[pitNumber + 1] += this.theBoard[pitNumber];
+		Player currentPlayer = this.currentPlayerObject.getValue();
+		int stonesLeft = 0;
+
+		if (currentPlayer.equals(this.theHuman)) {
+			stonesLeft = this.distributeHumanStones(pitNumber, this.theBoard[pitNumber]);
+
+			while (stonesLeft > 0) {
+				stonesLeft = this.distributeHumanStones(pitNumber, stonesLeft);
+			}
 		} else {
-			for (iterator = 0; iterator < this.theBoard[pitNumber]; iterator++) {
-				this.theBoard[pitNumber + iterator] += 1;
+			stonesLeft = this.distributeComputerStones(pitNumber, this.theBoard[pitNumber]);
+
+			while (stonesLeft > 0) {
+				stonesLeft = this.distributeComputerStones(pitNumber, stonesLeft);
 			}
 		}
+
 		this.theBoard[pitNumber] = 0;
+	}
+
+	private int distributeHumanStones(int pitNumber, int stonesInPit) {
+		int pitIncrease = 1;
+		int wrapper = pitNumber;
+
+		if (wrapper < 6) {
+			while (wrapper < 6 && stonesInPit > 0) {
+				wrapper++;
+				this.theBoard[pitNumber + pitIncrease] += 1;
+				pitIncrease++;
+				stonesInPit--;
+			}
+		}
+
+		pitIncrease = 0;
+
+		if (wrapper == 6 && stonesInPit > 0) {
+			while (wrapper > 0 && stonesInPit > 0) {
+				this.theBoard[pitIncrease] += 1;
+				pitIncrease++;
+				stonesInPit--;
+				wrapper--;
+			}
+		}
+
+		return stonesInPit;
+	}
+
+	private int distributeComputerStones(int pitNumber, int stonesInPit) {
+		int pitIncrease = 1;
+		int wrapper = pitNumber;
+
+		if (wrapper < 7) {
+			while (wrapper < 7 && stonesInPit > 0) {
+				wrapper++;
+				this.theBoard[pitNumber + pitIncrease] += 1;
+				pitIncrease++;
+				stonesInPit--;
+			}
+		}
+
+		pitIncrease = 0;
+		wrapper = 0;
+
+		while (wrapper < 3 && stonesInPit > 0) {
+			this.theBoard[pitIncrease] += 1;
+			pitIncrease++;
+			stonesInPit--;
+			wrapper++;
+		}
+
+		pitIncrease++;
+
+		while (wrapper > 0 && stonesInPit > 0) {
+			this.theBoard[pitIncrease] += 1;
+			pitIncrease++;
+			stonesInPit--;
+			wrapper--;
+		}
+
+		return stonesInPit;
 	}
 
 	/**
@@ -199,8 +270,8 @@ public class Game implements Observable {
 	 */
 	private void resetBoard() {
 		for (int index = 0; index < this.theBoard.length / 2 - 1; index++) {
-			this.theBoard[index] = 1;
-			this.theBoard[index + this.theBoard.length / 2] = 1;
+			this.theBoard[index] = 3;
+			this.theBoard[index + this.theBoard.length / 2] = 3;
 		}
 	}
 
