@@ -41,5 +41,15 @@ public class TestGetCurrentPlayer {
 		this.newGame.startNewGame(this.aiPlayer);
 		assertEquals("Simple computer", this.newGame.getCurrentPlayer().getName());
 	}
+	
+	/**
+	 * Test that current player is computer when players swap turns after human plays
+	 */
+	@Test
+	public void testGetCurrentPlayerShouldBeComputerWhenSwapped() {
+		this.newGame.startNewGame(this.humanPlayer1);
+		this.newGame.play(0);
+		assertEquals("Simple computer", this.newGame.getCurrentPlayer().getName());
+	}
 
 }
