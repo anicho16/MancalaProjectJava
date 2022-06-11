@@ -19,7 +19,8 @@ class TestCreateGame {
 	@Test
 	public void testShouldProduceGameWithNoScore() {
 		Game newGame = new Game();
-		assertEquals("Human: 0" + System.getProperty("line.separator") + "Simple computer: 0", newGame.toString());
+		assertEquals("Human: 0" + System.getProperty("line.separator") + "Simple computer: 0"
+				+ System.getProperty("line.separator"), newGame.toString());
 	}
 
 }
