@@ -23,7 +23,7 @@ class TestGetStones {
 	private Game newGame = new Game();
 	private HumanPlayer humanPlayer1 = new HumanPlayer("human", this.newGame);
 	private ComputerPlayer aiPlayer = new ComputerPlayer(this.newGame);
-	
+
 	/**
 	 * Test getting number of stones is 1 when starting the game in first pit
 	 */
@@ -32,7 +32,7 @@ class TestGetStones {
 		this.newGame.startNewGame(this.humanPlayer1);
 		assertEquals(1, this.newGame.getStones(0));
 	}
-	
+
 	/**
 	 * Test getting number of stones is 0 when starting the game in human's mancala
 	 */
@@ -41,9 +41,10 @@ class TestGetStones {
 		this.newGame.startNewGame(this.humanPlayer1);
 		assertEquals(0, this.newGame.getStones(this.newGame.getBoardSize() / 2 - 1));
 	}
-	
+
 	/**
-	 * Test getting number of stones is 0 when starting the game in computer's mancala
+	 * Test getting number of stones is 0 when starting the game in computer's
+	 * mancala
 	 */
 	@Test
 	public void testGetStonesComputerStoreIsZeroWhenStarting() {

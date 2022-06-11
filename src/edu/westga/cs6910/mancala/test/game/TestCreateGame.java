@@ -12,6 +12,7 @@ import edu.westga.cs6910.mancala.model.Game;
 
 /**
  * Test constructor for Game class
+ * 
  * @author Amber Nicholas
  * @version 6.11.22
  *

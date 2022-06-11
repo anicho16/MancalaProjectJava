@@ -23,7 +23,7 @@ public class TestGetCurrentPlayer {
 	private Game newGame = new Game();
 	private HumanPlayer humanPlayer1 = new HumanPlayer("human", this.newGame);
 	private ComputerPlayer aiPlayer = new ComputerPlayer(this.newGame);
-	
+
 	/**
 	 * Test that current player when starting game as a human
 	 */
@@ -32,7 +32,7 @@ public class TestGetCurrentPlayer {
 		this.newGame.startNewGame(this.humanPlayer1);
 		assertEquals("human", this.newGame.getCurrentPlayer().getName());
 	}
-	
+
 	/**
 	 * Test that current player when starting game with first player being computer
 	 */
@@ -41,9 +41,10 @@ public class TestGetCurrentPlayer {
 		this.newGame.startNewGame(this.aiPlayer);
 		assertEquals("Simple computer", this.newGame.getCurrentPlayer().getName());
 	}
-	
+
 	/**
-	 * Test that current player is computer when players swap turns after human plays
+	 * Test that current player is computer when players swap turns after human
+	 * plays
 	 */
 	@Test
 	public void testGetCurrentPlayerShouldBeComputerWhenSwapped() {

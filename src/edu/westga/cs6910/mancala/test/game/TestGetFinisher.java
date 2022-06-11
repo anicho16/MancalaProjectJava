@@ -25,8 +25,9 @@ class TestGetFinisher {
 	private ComputerPlayer aiPlayer = new ComputerPlayer(this.newGame);
 
 	/**
-	 * Test winner should be computer if more stones in store than human when game is over.
-	 * Tests distributeStonesFrom and determining if game is over, and determining winner
+	 * Test winner should be computer if more stones in store than human when game
+	 * is over. Tests distributeStonesFrom and determining if game is over, and
+	 * determining winner
 	 */
 	@Test
 	public void testWinnerWhenComputerHasMoreStoresAtGameEnd() {
@@ -36,16 +37,17 @@ class TestGetFinisher {
 		this.newGame.distributeStonesFrom(5);
 		this.newGame.distributeStonesFrom(2);
 		this.newGame.distributeStonesFrom(6);
-		
+
 		this.newGame.play(0);
 
 		assertEquals("Human: 1" + System.getProperty("line.separator") + "Simple computer: 2"
 				+ System.getProperty("line.separator") + "Simple computer wins", this.newGame.toString());
 	}
-	
+
 	/**
-	 * Test winner should be human if more stones in store than computer when game is over.
-	 * Tests distributeStonesFrom and determining if game is over, and determining winner
+	 * Test winner should be human if more stones in store than computer when game
+	 * is over. Tests distributeStonesFrom and determining if game is over, and
+	 * determining winner
 	 */
 	@Test
 	public void testWinnerWhenHumanHasMoreInStoreAtGameEnd() {
@@ -55,7 +57,7 @@ class TestGetFinisher {
 		this.newGame.distributeStonesFrom(1);
 		this.newGame.distributeStonesFrom(4);
 		this.newGame.distributeStonesFrom(2);
-		
+
 		this.newGame.play(5);
 
 		assertEquals("Human: 2" + System.getProperty("line.separator") + "Simple computer: 0"
