@@ -84,8 +84,8 @@ public class Game implements Observable {
 		int pitIncrease = 1;
 		int wrapper = pitNumber;
 
-		if (wrapper < 6) {
-			while (wrapper < 6 && stonesInPit > 0) {
+		if (wrapper < this.theBoard.length - 2) {
+			while (wrapper < this.theBoard.length - 2 && stonesInPit > 0) {
 				wrapper++;
 				this.theBoard[pitNumber + pitIncrease] += 1;
 				pitIncrease++;
@@ -95,7 +95,7 @@ public class Game implements Observable {
 
 		pitIncrease = 0;
 
-		if (wrapper == 6 && stonesInPit > 0) {
+		if (wrapper == this.theBoard.length - 2 && stonesInPit > 0) {
 			while (wrapper > 0 && stonesInPit > 0) {
 				this.theBoard[pitIncrease] += 1;
 				pitIncrease++;
@@ -111,8 +111,8 @@ public class Game implements Observable {
 		int pitIncrease = 1;
 		int wrapper = pitNumber;
 
-		if (wrapper < 7) {
-			while (wrapper < 7 && stonesInPit > 0) {
+		if (wrapper < this.theBoard.length - 1) {
+			while (wrapper < this.theBoard.length - 1 && stonesInPit > 0) {
 				wrapper++;
 				this.theBoard[pitNumber + pitIncrease] += 1;
 				pitIncrease++;
@@ -123,7 +123,7 @@ public class Game implements Observable {
 		pitIncrease = 0;
 		wrapper = 0;
 
-		while (wrapper < 3 && stonesInPit > 0) {
+		while (wrapper < this.theBoard.length / 2 - 1 && stonesInPit > 0) {
 			this.theBoard[pitIncrease] += 1;
 			pitIncrease++;
 			stonesInPit--;
@@ -270,8 +270,8 @@ public class Game implements Observable {
 	 */
 	private void resetBoard() {
 		for (int index = 0; index < this.theBoard.length / 2 - 1; index++) {
-			this.theBoard[index] = 3;
-			this.theBoard[index + this.theBoard.length / 2] = 3;
+			this.theBoard[index] = 1;
+			this.theBoard[index + this.theBoard.length / 2] = 1;
 		}
 	}
 
