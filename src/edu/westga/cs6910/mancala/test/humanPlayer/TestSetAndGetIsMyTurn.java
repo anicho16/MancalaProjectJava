@@ -27,12 +27,12 @@ public class TestSetAndGetIsMyTurn {
 	 * Tests set and get whether or not it is the human's turn
 	 */
 	@Test
-	void testCreateComputerPlayer() {
+	void testGetAndSetIsMyTurn() {
 		this.humanPlayer1.setIsMyTurn(false);
 
 		boolean result = this.humanPlayer1.getIsMyTurn();
 
-		assertEquals(result, this.humanPlayer1.getIsMyTurn());
+		assertEquals(false, result);
 	}
 
 }

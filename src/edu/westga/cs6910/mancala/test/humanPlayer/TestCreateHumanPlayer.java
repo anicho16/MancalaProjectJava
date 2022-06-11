@@ -25,7 +25,7 @@ public class TestCreateHumanPlayer {
 	 * Tests constructing human player and name should be string sent into constructor
 	 */
 	@Test
-	void testCreateComputerPlayer() {
+	void testCreateHumanPlayer() {
 		HumanPlayer humanPlayer1 = new HumanPlayer("Amber", this.newGame);
 
 		assertEquals("Amber", humanPlayer1.getName());
