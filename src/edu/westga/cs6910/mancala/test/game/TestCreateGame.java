@@ -16,8 +16,11 @@ import edu.westga.cs6910.mancala.model.Game;
  * @version 6.11.22
  *
  */
-class TestCreateGame {
+public class TestCreateGame {
 
+	/**
+	 * Test toString method after constructing Game object
+	 */
 	@Test
 	public void testShouldProduceGameWithNoScore() {
 		Game newGame = new Game();

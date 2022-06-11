@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6910.mancala.model.Game;
+import edu.westga.cs6910.mancala.model.HumanPlayer;
 
 /**
  * Test getIsGameOver method in Game class
@@ -17,12 +18,25 @@ import edu.westga.cs6910.mancala.model.Game;
  * @version 6.11.22
  *
  */
-class TestGetIsGameOver {
-
+public class TestGetIsGameOver {
+	private Game newGame = new Game();
+	private HumanPlayer firstPlayer = new HumanPlayer("human", this.newGame);
+	
+	/**
+	 * Test game is not over before begins
+	 */
 	@Test
 	public void testBeforeGameStartsIsNotOver() {
-		Game newGame = new Game();
-		assertEquals(false, newGame.getIsGameOver());
+		assertEquals(false, this.newGame.getIsGameOver());
+	}
+	
+	/**
+	 * Test game is not over when first starts
+	 */
+	@Test
+	public void testWhenGameFirstStartsIsNotOver() {
+		this.newGame.startNewGame(this.firstPlayer);
+		assertEquals(false, this.newGame.getIsGameOver());
 	}
 
 }

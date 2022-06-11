@@ -17,8 +17,11 @@ import edu.westga.cs6910.mancala.model.Game;
  * @version 6.11.22
  *
  */
-class TestGetBoardSize {
+public class TestGetBoardSize {
 
+	/**
+	 * Test for getting board size of game
+	 */
 	@Test
 	public void testNewGameShouldHaveBoardSize8() {
 		Game newGame = new Game();
