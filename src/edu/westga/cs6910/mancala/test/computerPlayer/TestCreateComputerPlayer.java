@@ -18,7 +18,7 @@ import edu.westga.cs6910.mancala.model.Game;
  * @version 6.11.22
  *
  */
-public class CreateComputerPlayer {
+public class TestCreateComputerPlayer {
 	private Game newGame = new Game();
 
 	/**
