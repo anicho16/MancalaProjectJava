@@ -30,7 +30,7 @@ public class ComputerPlayer extends AbstractPlayer {
 	public int choosePit() {
 		Game theGame = super.getGame();
 
-		for (int iterator = 4; iterator < theGame.getBoardSize() - 1; iterator++) {
+		for (int iterator = theGame.getBoardSize() / 2; iterator < theGame.getBoardSize() - 1; iterator++) {
 			if (theGame.getStones(iterator) != 0) {
 				this.currentPit = iterator;
 			}
