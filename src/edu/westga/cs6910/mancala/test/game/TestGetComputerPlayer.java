@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
-import edu.westga.cs6910.mancala.model.HumanPlayer;
 
 /**
  * Test getComputerPlayer method in Game class
@@ -24,7 +23,7 @@ public class TestGetComputerPlayer {
 	private ComputerPlayer aiPlayer = new ComputerPlayer(this.newGame);
 	
 	/**
-	 * Test getting computer player
+	 * Test getting computer player results in "simple computer"
 	 */
 	@Test
 	public void testGetComputerPlayer() {
