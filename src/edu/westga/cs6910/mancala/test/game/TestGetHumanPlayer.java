@@ -26,7 +26,7 @@ public class TestGetHumanPlayer {
 	 * Test that getHumanPlayer method results in "human"
 	 */
 	@Test
-	public void testGetCurrentPlayerShouldBeHuman() {
+	public void testGetHumanPlayerShouldBeHuman() {
 		this.newGame.startNewGame(this.humanPlayer1);
 		assertEquals("Human", this.newGame.getHumanPlayer().getName());
 	}

@@ -26,7 +26,7 @@ public class TestGetComputerPlayer {
 	 * Test getting computer player results in "simple computer"
 	 */
 	@Test
-	public void testGetComputerPlayer() {
+	public void testGetComputerPlayerShouldBeComputer() {
 		this.newGame.startNewGame(this.aiPlayer);
 		assertEquals("simple computer", this.newGame.getComputerPlayer().getName());
 	}
