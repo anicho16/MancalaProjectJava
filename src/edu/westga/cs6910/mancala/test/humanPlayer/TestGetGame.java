@@ -18,7 +18,7 @@ import edu.westga.cs6910.mancala.model.Game;
  * @version 6.11.22
  *
  */
-class TestGetGame {
+public class TestGetGame {
 	private Game newGame = new Game();
 
 	private HumanPlayer humanPlayer1 = new HumanPlayer("Amber", this.newGame);

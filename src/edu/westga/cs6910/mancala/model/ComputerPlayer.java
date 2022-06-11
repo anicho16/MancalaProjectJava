@@ -19,7 +19,7 @@ public class ComputerPlayer extends AbstractPlayer {
 	 */
 	public ComputerPlayer(Game theGame) {
 		super(NAME, theGame);
-		this.currentPit = 6;
+		this.currentPit = 4;
 	}
 
 	/**

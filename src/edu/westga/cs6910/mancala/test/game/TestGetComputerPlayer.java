@@ -21,14 +21,14 @@ import edu.westga.cs6910.mancala.model.Game;
 public class TestGetComputerPlayer {
 	private Game newGame = new Game();
 	private ComputerPlayer aiPlayer = new ComputerPlayer(this.newGame);
-	
+
 	/**
 	 * Test getting computer player results in "simple computer"
 	 */
 	@Test
 	public void testGetComputerPlayerShouldBeComputer() {
 		this.newGame.startNewGame(this.aiPlayer);
-		assertEquals("simple computer", this.newGame.getComputerPlayer().getName());
+		assertEquals("Simple computer", this.newGame.getComputerPlayer().getName());
 	}
 
 }

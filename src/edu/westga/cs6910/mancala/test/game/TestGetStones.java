@@ -19,7 +19,7 @@ import edu.westga.cs6910.mancala.model.HumanPlayer;
  * @version 6.11.22
  *
  */
-class TestGetStones {
+public class TestGetStones {
 	private Game newGame = new Game();
 	private HumanPlayer humanPlayer1 = new HumanPlayer("human", this.newGame);
 	private ComputerPlayer aiPlayer = new ComputerPlayer(this.newGame);
