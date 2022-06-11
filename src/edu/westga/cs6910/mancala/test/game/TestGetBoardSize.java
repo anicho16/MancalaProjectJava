@@ -11,18 +11,18 @@ import org.junit.jupiter.api.Test;
 import edu.westga.cs6910.mancala.model.Game;
 
 /**
- * Test constructor for Game class
+ * Test getBoardSize method in Game class
+ * 
  * @author Amber Nicholas
  * @version 6.11.22
  *
  */
-class TestCreateGame {
+class TestGetBoardSize {
 
 	@Test
-	public void testShouldProduceGameWithNoScore() {
+	public void testNewGameShouldHaveBoardSize8() {
 		Game newGame = new Game();
-		assertEquals("Human: 0" + System.getProperty("line.separator") + "Simple computer: 0"
-				+ System.getProperty("line.separator"), newGame.toString());
+		assertEquals(8, newGame.getBoardSize());
 	}
 
 }
