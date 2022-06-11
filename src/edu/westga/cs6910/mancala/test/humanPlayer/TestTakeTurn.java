@@ -18,7 +18,7 @@ import edu.westga.cs6910.mancala.model.HumanPlayer;
  * @version 6.11.22
  *
  */
-class TestTakeTurn {
+public class TestTakeTurn {
 	private Game newGame = new Game();
 
 	private HumanPlayer humanPlayer1 = new HumanPlayer("Amber", this.newGame);
