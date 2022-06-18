@@ -14,6 +14,7 @@ package edu.westga.cs6910.mancala.model.strategies;
 public interface SelectStrategy {
 	/**
 	 * Defines which pit the computer player will choose
+	 * 
 	 * @param pits - array of pits available on the game board
 	 * @return int pit - selected pit
 	 */

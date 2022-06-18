@@ -28,20 +28,22 @@ public class ComputerPlayer extends AbstractPlayer {
 
 	/**
 	 * Sets the strategy the computer will use to choose a pit
+	 * 
 	 * @param strategy - strategy to use
 	 */
 	public void setStrategy(SelectStrategy strategy) {
 		this.strategy = strategy;
 	}
-	
+
 	/**
 	 * Gets the strategy the computer is currently using to choose a pit
+	 * 
 	 * @return - strategy being used
 	 */
 	public SelectStrategy getStrategy() {
 		return this.strategy;
 	}
-	
+
 	/**
 	 * Helps the computer player choose a pit with stones inside to move
 	 * 

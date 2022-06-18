@@ -56,19 +56,19 @@ public class MancalaPane extends BorderPane {
 
 		this.setCenter(this.pnContent);
 	}
-	
+
 	private void addMenu() {
 		BorderPane root = new BorderPane();
-		
+
 		MenuBar gameMenuBar = new MenuBar();
 		gameMenuBar.prefWidthProperty().bind(this.widthProperty());
-	    root.setTop(gameMenuBar);
-		
+		root.setTop(gameMenuBar);
+
 		Menu gameMenu = this.createGameMenu();
 		Menu computerPlayerMenu = this.createComputerPlayerMenu();
-		
+
 		gameMenuBar.getMenus().addAll(gameMenu, computerPlayerMenu);
-		
+
 		this.pnContent.add(gameMenuBar, 0, 0);
 	}
 
@@ -79,30 +79,30 @@ public class MancalaPane extends BorderPane {
 		MenuItem randomMenuItem = new MenuItem("Random  Ctrl+R");
 
 		nearMenuItem.setOnAction((ActionEvent t) -> {
-	         this.theGame.getComputerPlayer().setStrategy(new NearStrategy());
-	      });
-		
+			this.theGame.getComputerPlayer().setStrategy(new NearStrategy());
+		});
+
 		farMenuItem.setOnAction((ActionEvent t) -> {
-	         this.theGame.getComputerPlayer().setStrategy(new FarStrategy());
-	      });
-		
+			this.theGame.getComputerPlayer().setStrategy(new FarStrategy());
+		});
+
 		randomMenuItem.setOnAction((ActionEvent t) -> {
-	         this.theGame.getComputerPlayer().setStrategy(new RandomStrategy());
-	      });
-		
+			this.theGame.getComputerPlayer().setStrategy(new RandomStrategy());
+		});
+
 		computerPlayerMenu.getItems().addAll(nearMenuItem, farMenuItem, randomMenuItem);
-		
+
 		return computerPlayerMenu;
 	}
 
 	private Menu createGameMenu() {
 		Menu gameMenu = new Menu("Game");
 		MenuItem exitMenuItem = new MenuItem("Exit  Ctrl+X");
-		
+
 		exitMenuItem.setOnAction((ActionEvent t) -> {
-	         System.exit(0);
-	      });
-		 
+			System.exit(0);
+		});
+
 		gameMenu.getItems().addAll(exitMenuItem);
 		return gameMenu;
 	}
