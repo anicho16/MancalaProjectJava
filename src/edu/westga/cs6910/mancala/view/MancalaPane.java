@@ -5,12 +5,17 @@ import edu.westga.cs6910.mancala.model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 /**
  * Defines a GUI for the Mancala game. Started by CS6910. Fill your name into
@@ -42,6 +47,7 @@ public class MancalaPane extends BorderPane {
 
 		this.pnContent = new GridPane();
 
+		this.addMenu();
 		this.addFirstPlayerChooserPane(theGame);
 		this.addComputerPane();
 		this.addHumanPane();
@@ -49,13 +55,47 @@ public class MancalaPane extends BorderPane {
 
 		this.setCenter(this.pnContent);
 	}
+	
+	private void addMenu() {
+		BorderPane root = new BorderPane();
+		
+		MenuBar gameMenuBar = new MenuBar();
+		gameMenuBar.prefWidthProperty().bind(this.widthProperty());
+	    root.setTop(gameMenuBar);
+		
+		Menu gameMenu = this.createGameMenu();
+		Menu computerPlayerMenu = this.createComputerPlayerMenu();
+		
+		gameMenuBar.getMenus().addAll(gameMenu, computerPlayerMenu);
+		
+		this.pnContent.add(gameMenuBar, 0, 0);
+	}
+
+	private Menu createComputerPlayerMenu() {
+		Menu computerPlayerMenu = new Menu("Computer Player");
+		MenuItem nearMenuItem = new MenuItem("Near");
+		MenuItem farMenuItem = new MenuItem("Far");
+		MenuItem randomMenuItem = new MenuItem("Random");
+		
+		computerPlayerMenu.getItems().addAll(nearMenuItem, farMenuItem, randomMenuItem);
+		
+		return computerPlayerMenu;
+	}
+
+	private Menu createGameMenu() {
+		Menu gameMenu = new Menu("Game");
+		MenuItem exitMenuItem = new MenuItem("Exit");
+		 
+		gameMenu.getItems().addAll(exitMenuItem);
+		return gameMenu;
+	}
 
 	private void addFirstPlayerChooserPane(Game theGame) {
 		HBox topBox = new HBox();
 		topBox.getStyleClass().add("pane-border");
 		this.pnChooseFirstPlayer = new NewGamePane(theGame);
 		topBox.getChildren().add(this.pnChooseFirstPlayer);
-		this.pnContent.add(topBox, 0, 0);
+		this.pnContent.add(topBox, 0, 1);
 	}
 
 	private void addComputerPane() {
@@ -64,7 +104,7 @@ public class MancalaPane extends BorderPane {
 		this.pnComputerPlayer = new ComputerPane(this.theGame);
 		computerBox.getChildren().add(this.pnComputerPlayer);
 
-		this.pnContent.add(computerBox, 0, 1);
+		this.pnContent.add(computerBox, 0, 2);
 	}
 
 	private void addHumanPane() {
@@ -73,7 +113,7 @@ public class MancalaPane extends BorderPane {
 		this.pnHumanPlayer = new HumanPane(this.theGame);
 		humanBox.getChildren().add(this.pnHumanPlayer);
 
-		this.pnContent.add(humanBox, 0, 2);
+		this.pnContent.add(humanBox, 0, 3);
 	}
 
 	private void addStatusPane() {
@@ -83,7 +123,7 @@ public class MancalaPane extends BorderPane {
 		this.pnGameInfo = new StatusPane(this.theGame);
 		statusBox.getChildren().add(this.pnGameInfo);
 
-		this.pnContent.add(statusBox, 0, 3);
+		this.pnContent.add(statusBox, 0, 4);
 	}
 
 	/*
