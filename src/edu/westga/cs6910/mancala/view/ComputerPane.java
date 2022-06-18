@@ -110,14 +110,4 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 			}
 		}
 	}
-	
-	public void sendStrategy(int choice) {
-		switch(choice) {
-			case 0: this.theComputer.setStrategy(new NearStrategy());
-			break;
-			case 1: this.theComputer.setStrategy(new FarStrategy());
-			break;
-			default: this.theComputer.setStrategy(new NearStrategy());
-		}
-	}
 }

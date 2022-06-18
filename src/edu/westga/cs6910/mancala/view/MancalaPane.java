@@ -4,6 +4,7 @@ import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
 import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
 import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
+import edu.westga.cs6910.mancala.model.strategies.RandomStrategy;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -86,7 +87,7 @@ public class MancalaPane extends BorderPane {
 	      });
 		
 		randomMenuItem.setOnAction((ActionEvent t) -> {
-	         
+	         this.theGame.getComputerPlayer().setStrategy(new RandomStrategy());
 	      });
 		
 		computerPlayerMenu.getItems().addAll(nearMenuItem, farMenuItem, randomMenuItem);

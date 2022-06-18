@@ -1,5 +1,6 @@
 package edu.westga.cs6910.mancala.model;
 
+import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
 import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
 import edu.westga.cs6910.mancala.model.strategies.SelectStrategy;
 
@@ -22,7 +23,7 @@ public class ComputerPlayer extends AbstractPlayer {
 	 */
 	public ComputerPlayer(Game theGame) {
 		super(NAME, theGame);
-		this.strategy = new NearStrategy();
+		this.strategy = new FarStrategy();
 	}
 
 	/**
