@@ -74,6 +74,10 @@ public class MancalaPane extends BorderPane {
 		MenuItem nearMenuItem = new MenuItem("Near        Ctrl+N");
 		MenuItem farMenuItem = new MenuItem("Far           Ctrl+A");
 		MenuItem randomMenuItem = new MenuItem("Random  Ctrl+R");
+
+		nearMenuItem.setOnAction((ActionEvent t) -> {
+	         this.pnComputerPlayer.sendStrategy(0);
+	      });
 		
 		computerPlayerMenu.getItems().addAll(nearMenuItem, farMenuItem, randomMenuItem);
 		
