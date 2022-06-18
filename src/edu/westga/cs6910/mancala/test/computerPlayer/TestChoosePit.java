@@ -31,9 +31,9 @@ class TestChoosePit {
 	@Test
 	void testPitIsEmptyAfterTakeTurn() {
 		this.newGame.startNewGame(this.computerPlayer1);
-		this.newGame.play(this.computerPlayer1.choosePit());
+		this.newGame.play(this.computerPlayer1.selectPit());
 
-		int result = this.computerPlayer1.choosePit();
+		int result = this.computerPlayer1.selectPit();
 
 		assertEquals(5, result);
 	}
