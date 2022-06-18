@@ -13,6 +13,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -74,9 +75,16 @@ public class MancalaPane extends BorderPane {
 
 	private Menu createComputerPlayerMenu() {
 		Menu computerPlayerMenu = new Menu("Computer Player");
+		computerPlayerMenu.setMnemonicParsing(true);
+		
 		MenuItem nearMenuItem = new MenuItem("Near        Ctrl+N");
+		nearMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+N"));
+		
 		MenuItem farMenuItem = new MenuItem("Far           Ctrl+A");
+		farMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+A"));
+		
 		MenuItem randomMenuItem = new MenuItem("Random  Ctrl+R");
+		randomMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+R"));
 
 		nearMenuItem.setOnAction((ActionEvent t) -> {
 			this.theGame.getComputerPlayer().setStrategy(new NearStrategy());
@@ -97,7 +105,10 @@ public class MancalaPane extends BorderPane {
 
 	private Menu createGameMenu() {
 		Menu gameMenu = new Menu("Game");
+		gameMenu.setMnemonicParsing(true);
+		
 		MenuItem exitMenuItem = new MenuItem("Exit  Ctrl+X");
+		exitMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+X"));
 
 		exitMenuItem.setOnAction((ActionEvent t) -> {
 			System.exit(0);
