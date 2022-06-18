@@ -1,5 +1,8 @@
 package edu.westga.cs6910.mancala.model;
 
+import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
+import edu.westga.cs6910.mancala.model.strategies.SelectStrategy;
+
 /**
  * ComputerPlayer represents a very simple automated player in the game Mancala.
  * It always selects the closest pit for stones to be distributed
@@ -9,7 +12,7 @@ package edu.westga.cs6910.mancala.model;
  */
 public class ComputerPlayer extends AbstractPlayer {
 	private static final String NAME = "Simple computer";
-	private int currentPit;
+	private SelectStrategy strategy;
 
 	/**
 	 * Creates a new ComputerPlayer with the specified name.
@@ -19,22 +22,31 @@ public class ComputerPlayer extends AbstractPlayer {
 	 */
 	public ComputerPlayer(Game theGame) {
 		super(NAME, theGame);
-		this.currentPit = 4;
+		this.strategy = new NearStrategy();
 	}
 
+	/**
+	 * Sets the strategy the computer will use to choose a pit
+	 * @param strategy - strategy to use
+	 */
+	public void setStrategy(SelectStrategy strategy) {
+		this.strategy = strategy;
+	}
+	
+	/**
+	 * Gets the strategy the computer is currently using to choose a pit
+	 * @return - strategy being used
+	 */
+	public SelectStrategy getStrategy() {
+		return this.strategy;
+	}
+	
 	/**
 	 * Helps the computer player choose a pit with stones inside to move
 	 * 
 	 * @return - pit with stones on the computer's side of the board
 	 */
-	public int choosePit() {
-		Game theGame = super.getGame();
-
-		for (int iterator = theGame.getBoardSize() / 2; iterator < theGame.getBoardSize() - 1; iterator++) {
-			if (theGame.getStones(iterator) != 0) {
-				this.currentPit = iterator;
-			}
-		}
-		return this.currentPit;
+	public int selectPit() {
+		return this.strategy.selectPit(super.getGame().getGameBoard());
 	}
 }

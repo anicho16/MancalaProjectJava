@@ -103,7 +103,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		@Override
 		public void handle(ActionEvent arg0) {
 			if (!ComputerPane.this.theGame.getIsGameOver()) {
-				int pitChoice = ComputerPane.this.theComputer.choosePit();
+				int pitChoice = ComputerPane.this.theComputer.selectPit();
 				ComputerPane.this.theGame.play(pitChoice);
 			}
 		}
