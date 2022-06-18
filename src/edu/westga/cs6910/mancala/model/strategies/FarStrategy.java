@@ -20,7 +20,7 @@ public class FarStrategy implements SelectStrategy {
 	public int selectPit(int[] pits) {
 		int selectedPit = pits.length / 2;
 		
-		for (int iterator = pits.length - 1; iterator > pits.length / 2; iterator--) {
+		for (int iterator = pits.length - 2; iterator > pits.length / 2 - 1; iterator--) {
 			if (pits[iterator] != 0) {
 				selectedPit = iterator;
 			}
