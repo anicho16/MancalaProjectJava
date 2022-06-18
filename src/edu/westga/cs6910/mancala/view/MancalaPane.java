@@ -73,9 +73,9 @@ public class MancalaPane extends BorderPane {
 
 	private Menu createComputerPlayerMenu() {
 		Menu computerPlayerMenu = new Menu("Computer Player");
-		MenuItem nearMenuItem = new MenuItem("Near");
-		MenuItem farMenuItem = new MenuItem("Far");
-		MenuItem randomMenuItem = new MenuItem("Random");
+		MenuItem nearMenuItem = new MenuItem("Near        Ctrl+N");
+		MenuItem farMenuItem = new MenuItem("Far           Ctrl+A");
+		MenuItem randomMenuItem = new MenuItem("Random  Ctrl+R");
 		
 		computerPlayerMenu.getItems().addAll(nearMenuItem, farMenuItem, randomMenuItem);
 		
@@ -84,7 +84,11 @@ public class MancalaPane extends BorderPane {
 
 	private Menu createGameMenu() {
 		Menu gameMenu = new Menu("Game");
-		MenuItem exitMenuItem = new MenuItem("Exit");
+		MenuItem exitMenuItem = new MenuItem("Exit  Ctrl+X");
+		
+		exitMenuItem.setOnAction((ActionEvent t) -> {
+	         System.exit(0);
+	      });
 		 
 		gameMenu.getItems().addAll(exitMenuItem);
 		return gameMenu;
