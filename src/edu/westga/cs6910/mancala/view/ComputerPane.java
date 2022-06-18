@@ -2,6 +2,7 @@ package edu.westga.cs6910.mancala.view;
 
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
+import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
 import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -113,6 +114,8 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	public void sendStrategy(int choice) {
 		switch(choice) {
 			case 0: this.theComputer.setStrategy(new NearStrategy());
+			break;
+			case 1: this.theComputer.setStrategy(new FarStrategy());
 			break;
 			default: this.theComputer.setStrategy(new NearStrategy());
 		}
