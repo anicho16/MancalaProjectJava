@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
-import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
 import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
 
 /**

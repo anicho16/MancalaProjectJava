@@ -2,8 +2,6 @@ package edu.westga.cs6910.mancala.view;
 
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
-import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
-import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;

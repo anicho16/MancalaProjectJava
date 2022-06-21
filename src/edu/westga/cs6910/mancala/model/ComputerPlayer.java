@@ -1,7 +1,6 @@
 package edu.westga.cs6910.mancala.model;
 
 import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
-import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
 import edu.westga.cs6910.mancala.model.strategies.SelectStrategy;
 
 /**
