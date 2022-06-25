@@ -22,6 +22,7 @@ public class Game implements Observable {
 	private HumanPlayer theHuman;
 	private ComputerPlayer theComputer;
 	private int startingStonesInPit;
+	private boolean landedInMancala;
 
 	private Player theWinner;
 	private boolean isGameOver;
@@ -34,6 +35,7 @@ public class Game implements Observable {
 		this.theHuman = new HumanPlayer("Human", this);
 		this.theComputer = new ComputerPlayer(this);
 		this.startingStonesInPit = 1;
+		this.landedInMancala = false;
 
 		this.currentPlayerObject = new SimpleObjectProperty<Player>();
 
@@ -71,6 +73,7 @@ public class Game implements Observable {
 		int stonesLeft = this.theBoard[pitNumber];
 		int lastPitStoneDropped = 0;
 		boolean mySideOfTheBoard = false;
+		this.landedInMancala = false;
 
 		if (currentPlayer.equals(this.theHuman)) {
 			while (stonesLeft > 0) {
@@ -78,7 +81,6 @@ public class Game implements Observable {
 				stonesLeft = stonesAndLastPit[0];
 				lastPitStoneDropped = stonesAndLastPit[1];
 			}
-
 		} else {
 			while (stonesLeft > 0) {
 				stonesAndLastPit = this.distributeComputerStones(pitNumber, this.theBoard[pitNumber]);
@@ -88,6 +90,26 @@ public class Game implements Observable {
 		}
 		this.theBoard[pitNumber] = 0;
 
+		mySideOfTheBoard = this.checkIfMySideOfTheBoard(currentPlayer, lastPitStoneDropped);
+		this.checkIfLandedInMancala(currentPlayer, lastPitStoneDropped);
+
+		if (mySideOfTheBoard && this.theBoard[lastPitStoneDropped] == 1
+				&& lastPitStoneDropped != this.theBoard.length - 1
+				&& lastPitStoneDropped != this.theBoard.length / 2 - 1) {
+			this.takeStonesAcrossFromLastPit(lastPitStoneDropped);
+		}
+	}
+
+	private void checkIfLandedInMancala(Player currentPlayer, int lastPitStoneDropped) {
+		if (currentPlayer.equals(this.theHuman) && lastPitStoneDropped == this.theBoard.length / 2 - 1) {
+			this.landedInMancala = true;
+		} else if (currentPlayer.equals(this.theComputer) && lastPitStoneDropped == this.theBoard.length - 1) {
+			this.landedInMancala = true;
+		}
+	}
+
+	private boolean checkIfMySideOfTheBoard(Player currentPlayer, int lastPitStoneDropped) {
+		boolean mySideOfTheBoard = false;
 		if (currentPlayer.equals(this.theHuman) && lastPitStoneDropped >= 0
 				&& lastPitStoneDropped < this.theBoard.length / 2) {
 			mySideOfTheBoard = true;
@@ -95,12 +117,7 @@ public class Game implements Observable {
 				&& lastPitStoneDropped < this.theBoard.length) {
 			mySideOfTheBoard = true;
 		}
-
-		if (mySideOfTheBoard && this.theBoard[lastPitStoneDropped] == 1
-				&& lastPitStoneDropped != this.theBoard.length - 1
-				&& lastPitStoneDropped != this.theBoard.length / 2 - 1) {
-			this.takeStonesAcrossFromLastPit(lastPitStoneDropped);
-		}
+		return mySideOfTheBoard;
 	}
 
 	private void takeStonesAcrossFromLastPit(int lastPitStoneDropped) {
@@ -334,10 +351,18 @@ public class Game implements Observable {
 	}
 
 	private void swapWhoseTurn() {
-		if (this.currentPlayerObject.getValue() == this.theComputer) {
+		if (this.currentPlayerObject.getValue() == this.theComputer && !this.landedInMancala) {
 			this.currentPlayerObject.setValue(this.theHuman);
-		} else {
+		} else if (this.currentPlayerObject.getValue() == this.theHuman && !this.landedInMancala) {
 			this.currentPlayerObject.setValue(this.theComputer);
+		} else {
+			Alert landedInOwnMancala = new Alert(AlertType.INFORMATION);
+			landedInOwnMancala.setContentText("Your last stone landed in your Mancala. Take another turn.");
+			landedInOwnMancala.show();
+			Player temp = this.currentPlayerObject.getValue();
+			this.currentPlayerObject.setValue(this.theComputer);
+			this.currentPlayerObject.setValue(this.theHuman);
+			this.currentPlayerObject.setValue(temp);
 		}
 
 	}
