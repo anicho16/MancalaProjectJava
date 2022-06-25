@@ -60,7 +60,7 @@ public class Game implements Observable {
 			throw new IllegalArgumentException("Pit number cannot be negative");
 		}
 		Player currentPlayer = this.currentPlayerObject.getValue();
-		int[] stonesAndLastPit = {0, 0};
+		int[] stonesAndLastPit = { 0, 0 };
 		int stonesLeft = this.theBoard[pitNumber];
 		int lastPitStoneDropped = 0;
 
@@ -78,6 +78,31 @@ public class Game implements Observable {
 			}
 		}
 		this.theBoard[pitNumber] = 0;
+
+		if (this.theBoard[lastPitStoneDropped] == 1 && lastPitStoneDropped != this.theBoard.length - 1
+				&& lastPitStoneDropped != this.theBoard.length / 2 - 1) {
+			this.takeStonesAcrossFromLastPit(lastPitStoneDropped);
+		}
+	}
+
+	private void takeStonesAcrossFromLastPit(int lastPitStoneDropped) {
+		Player currentPlayer = this.currentPlayerObject.getValue();
+		int counter = 0;
+		int pitAcrossFrom = 0;
+		
+		if (currentPlayer.equals(this.theComputer)) {
+			counter = lastPitStoneDropped - (this.theBoard.length / 2 + 1);
+			pitAcrossFrom = (counter - 1) * 2;
+		} else {
+			counter = this.theBoard.length / 2;
+			int acrossCalculation = (counter - 1) * 2;
+			pitAcrossFrom = Math.abs(lastPitStoneDropped - acrossCalculation);
+		}
+
+		System.out.println("Pit across from " + lastPitStoneDropped + " is " + pitAcrossFrom);
+
+		this.theBoard[lastPitStoneDropped] += this.theBoard[pitAcrossFrom];
+		this.theBoard[pitAcrossFrom] = 0;
 	}
 
 	private int[] distributeHumanStones(int pitNumber, int stonesInPit) {
@@ -107,7 +132,7 @@ public class Game implements Observable {
 		while (lastPitStoneDropped > this.theBoard.length - 1) {
 			lastPitStoneDropped -= this.theBoard.length;
 		}
-		int[] stonesAndLastPit = {stonesInPit, lastPitStoneDropped};
+		int[] stonesAndLastPit = { stonesInPit, lastPitStoneDropped };
 
 		return stonesAndLastPit;
 	}
@@ -146,8 +171,8 @@ public class Game implements Observable {
 		while (lastPitStoneDropped > this.theBoard.length - 1) {
 			lastPitStoneDropped -= this.theBoard.length;
 		}
-		
-		int[] stonesAndLastPit = {stonesInPit, lastPitStoneDropped};
+
+		int[] stonesAndLastPit = { stonesInPit, lastPitStoneDropped };
 		System.out.println("Computer last pit is " + lastPitStoneDropped);
 
 		return stonesAndLastPit;
