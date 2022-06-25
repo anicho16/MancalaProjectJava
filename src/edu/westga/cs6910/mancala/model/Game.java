@@ -4,6 +4,9 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 
 /**
  * Game represents a Mancala game. Started by CS6910. Fill your name into
@@ -115,6 +118,10 @@ public class Game implements Observable {
 		}
 
 		System.out.println("Pit across from " + lastPitStoneDropped + " is " + pitAcrossFrom);
+
+		Alert tookExtraStones = new Alert(AlertType.INFORMATION);
+		tookExtraStones.setContentText("You landed in an empty pit on your side of the board");
+		tookExtraStones.show();
 
 		this.theBoard[lastPitStoneDropped] += this.theBoard[pitAcrossFrom];
 		this.theBoard[pitAcrossFrom] = 0;
