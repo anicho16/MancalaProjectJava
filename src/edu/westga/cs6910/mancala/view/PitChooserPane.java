@@ -5,8 +5,6 @@
 package edu.westga.cs6910.mancala.view;
 
 import edu.westga.cs6910.mancala.model.Game;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -21,9 +19,8 @@ import javafx.scene.layout.GridPane;
  * @author Amber Nicholas
  * @version 6.25.22
  */
-public class PitChooserPane extends GridPane implements InvalidationListener {
+public class PitChooserPane extends GridPane {
 	private Game theGame;
-	private int numberOfStonesInStartPit;
 
 	/**
 	 * Creates a new status pane that observes the specified game.
@@ -34,9 +31,6 @@ public class PitChooserPane extends GridPane implements InvalidationListener {
 	 */
 	public PitChooserPane(Game theGame) {
 		this.theGame = theGame;
-		this.numberOfStonesInStartPit = 1;
-
-		this.theGame.addListener(this);
 
 		this.buildPane();
 	}
@@ -56,13 +50,9 @@ public class PitChooserPane extends GridPane implements InvalidationListener {
 		ObservableList<String> choices = FXCollections.observableArrayList(stoneChoices);
 		stoneChooser.getItems().addAll(choices);
 
-		stoneChooser.setOnAction(e -> this.numberOfStonesInStartPit = choices.indexOf(stoneChooser.getValue()));
+		stoneChooser.setOnAction(e -> this.theGame.setStartingStonesInPit(choices.indexOf(stoneChooser.getValue()) + 1));
 
 		this.add(pane, 0, 0);
 	}
 
-	@Override
-	public void invalidated(Observable observable) {
-		this.theGame.setStartingStonesInPit(this.numberOfStonesInStartPit);
-	}
 }

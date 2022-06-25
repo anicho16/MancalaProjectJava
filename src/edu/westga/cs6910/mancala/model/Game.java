@@ -18,6 +18,7 @@ public class Game implements Observable {
 	private ObjectProperty<Player> currentPlayerObject;
 	private HumanPlayer theHuman;
 	private ComputerPlayer theComputer;
+	private int startingStonesInPit;
 
 	private Player theWinner;
 	private boolean isGameOver;
@@ -29,6 +30,7 @@ public class Game implements Observable {
 	public Game() {
 		this.theHuman = new HumanPlayer("Human", this);
 		this.theComputer = new ComputerPlayer(this);
+		this.startingStonesInPit = 1;
 
 		this.currentPlayerObject = new SimpleObjectProperty<Player>();
 
@@ -89,7 +91,7 @@ public class Game implements Observable {
 		Player currentPlayer = this.currentPlayerObject.getValue();
 		int counter = 0;
 		int pitAcrossFrom = 0;
-		
+
 		if (currentPlayer.equals(this.theComputer)) {
 			counter = lastPitStoneDropped - (this.theBoard.length / 2 + 1);
 			pitAcrossFrom = (counter - 1) * 2;
@@ -306,8 +308,8 @@ public class Game implements Observable {
 	 */
 	private void resetBoard() {
 		for (int index = 0; index < this.theBoard.length / 2 - 1; index++) {
-			this.theBoard[index] = 1;
-			this.theBoard[index + this.theBoard.length / 2] = 1;
+			this.theBoard[index] = this.startingStonesInPit;
+			this.theBoard[index + this.theBoard.length / 2] = this.startingStonesInPit;
 		}
 	}
 
@@ -348,5 +350,23 @@ public class Game implements Observable {
 	@Override
 	public void removeListener(InvalidationListener theListener) {
 		this.currentPlayerObject.removeListener(theListener);
+	}
+
+	/**
+	 * Accessor for starting number of stones in each pit.
+	 * 
+	 * @return the startingStonesInPit
+	 */
+	public int getStartingStonesInPit() {
+		return this.startingStonesInPit;
+	}
+
+	/**
+	 * Mutator for starting number of stones in each pit
+	 * 
+	 * @param startingStonesInPit the startingStonesInPit to set
+	 */
+	public void setStartingStonesInPit(int startingStonesInPit) {
+		this.startingStonesInPit = startingStonesInPit;
 	}
 }

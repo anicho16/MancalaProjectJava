@@ -60,7 +60,6 @@ public class MancalaPane extends BorderPane {
 		this.setCenter(this.pnContent);
 	}
 
-
 	private void addMenu() {
 		BorderPane root = new BorderPane();
 
@@ -79,13 +78,13 @@ public class MancalaPane extends BorderPane {
 	private Menu createComputerPlayerMenu() {
 		Menu computerPlayerMenu = new Menu("Computer Player");
 		computerPlayerMenu.setMnemonicParsing(true);
-		
+
 		MenuItem nearMenuItem = new MenuItem("Near        Ctrl+N");
 		nearMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+N"));
-		
+
 		MenuItem farMenuItem = new MenuItem("Far           Ctrl+A");
 		farMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+A"));
-		
+
 		MenuItem randomMenuItem = new MenuItem("Random  Ctrl+R");
 		randomMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+R"));
 
@@ -109,7 +108,7 @@ public class MancalaPane extends BorderPane {
 	private Menu createGameMenu() {
 		Menu gameMenu = new Menu("Game");
 		gameMenu.setMnemonicParsing(true);
-		
+
 		MenuItem exitMenuItem = new MenuItem("Exit  Ctrl+X");
 		exitMenuItem.setAccelerator(KeyCombination.keyCombination("shortcut+X"));
 
@@ -120,14 +119,14 @@ public class MancalaPane extends BorderPane {
 		gameMenu.getItems().addAll(exitMenuItem);
 		return gameMenu;
 	}
-	
+
 	private void addPitChooserPane() {
 		HBox pitChoiceBox = new HBox();
 		pitChoiceBox.setAlignment(Pos.CENTER);
 		pitChoiceBox.getStyleClass().add("pane-border");
 		this.pnStoneChooser = new PitChooserPane(this.theGame);
 		pitChoiceBox.getChildren().add(this.pnStoneChooser);
-		
+
 		this.pnContent.add(pitChoiceBox, 0, 1);
 	}
 
