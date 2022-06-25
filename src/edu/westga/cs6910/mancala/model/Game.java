@@ -6,7 +6,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 
 /**
  * Game represents a Mancala game. Started by CS6910. Fill your name into
@@ -71,28 +70,33 @@ public class Game implements Observable {
 		Player currentPlayer = this.currentPlayerObject.getValue();
 		int[] stonesAndLastPit = { 0, 0 };
 		int stonesLeft = this.theBoard[pitNumber];
+		this.theBoard[pitNumber] = 0;
 		int lastPitStoneDropped = 0;
 		boolean mySideOfTheBoard = false;
 		this.landedInMancala = false;
-
-		if (currentPlayer.equals(this.theHuman)) {
+		if (currentPlayer.equals(this.theHuman) && stonesLeft > 0) {
+			stonesAndLastPit = this.distributeHumanStones(pitNumber, stonesLeft);
+			stonesLeft = stonesAndLastPit[0];
+			lastPitStoneDropped = stonesAndLastPit[1];
 			while (stonesLeft > 0) {
-				stonesAndLastPit = this.distributeHumanStones(pitNumber, this.theBoard[pitNumber]);
+				stonesAndLastPit = this.distributeHumanStones(lastPitStoneDropped, stonesLeft);
 				stonesLeft = stonesAndLastPit[0];
 				lastPitStoneDropped = stonesAndLastPit[1];
 			}
 		} else {
-			while (stonesLeft > 0) {
-				stonesAndLastPit = this.distributeComputerStones(pitNumber, this.theBoard[pitNumber]);
+			if (stonesLeft > 0) {
+				stonesAndLastPit = this.distributeComputerStones(pitNumber, stonesLeft);
 				stonesLeft = stonesAndLastPit[0];
 				lastPitStoneDropped = stonesAndLastPit[1];
+				while (stonesLeft > 0) {
+					stonesAndLastPit = this.distributeComputerStones(lastPitStoneDropped, stonesLeft);
+					stonesLeft = stonesAndLastPit[0];
+					lastPitStoneDropped = stonesAndLastPit[1];
+				}
 			}
 		}
-		this.theBoard[pitNumber] = 0;
-
 		mySideOfTheBoard = this.checkIfMySideOfTheBoard(currentPlayer, lastPitStoneDropped);
 		this.checkIfLandedInMancala(currentPlayer, lastPitStoneDropped);
-
 		if (mySideOfTheBoard && this.theBoard[lastPitStoneDropped] == 1
 				&& lastPitStoneDropped != this.theBoard.length - 1
 				&& lastPitStoneDropped != this.theBoard.length / 2 - 1) {
@@ -126,15 +130,13 @@ public class Game implements Observable {
 		int pitAcrossFrom = 0;
 
 		if (currentPlayer.equals(this.theComputer)) {
-			counter = lastPitStoneDropped - (this.theBoard.length / 2 + 1);
-			pitAcrossFrom = (counter - 1) * 2;
+			counter = lastPitStoneDropped - (this.theBoard.length / 2 - 1);
+			pitAcrossFrom = Math.abs(counter * 2 - lastPitStoneDropped);
 		} else {
 			counter = this.theBoard.length / 2;
 			int acrossCalculation = (counter - 1) * 2;
 			pitAcrossFrom = Math.abs(lastPitStoneDropped - acrossCalculation);
 		}
-
-		System.out.println("Pit across from " + lastPitStoneDropped + " is " + pitAcrossFrom);
 
 		Alert tookExtraStones = new Alert(AlertType.INFORMATION);
 		tookExtraStones.setContentText("You landed in an empty pit on your side of the board");
@@ -169,7 +171,7 @@ public class Game implements Observable {
 			}
 		}
 		while (lastPitStoneDropped > this.theBoard.length - 1) {
-			lastPitStoneDropped -= this.theBoard.length;
+			lastPitStoneDropped -= (this.theBoard.length - 1);
 		}
 		int[] stonesAndLastPit = { stonesInPit, lastPitStoneDropped };
 
@@ -180,7 +182,6 @@ public class Game implements Observable {
 		int pitIncrease = 1;
 		int wrapper = pitNumber;
 		int lastPitStoneDropped = pitNumber;
-
 		if (wrapper < this.theBoard.length - 1) {
 			while (wrapper < this.theBoard.length - 1 && stonesInPit > 0) {
 				wrapper++;
@@ -190,6 +191,7 @@ public class Game implements Observable {
 				lastPitStoneDropped++;
 			}
 		}
+
 		pitIncrease = 0;
 		wrapper = 0;
 		while (wrapper < this.theBoard.length / 2 - 1 && stonesInPit > 0) {
@@ -208,11 +210,9 @@ public class Game implements Observable {
 			lastPitStoneDropped++;
 		}
 		while (lastPitStoneDropped > this.theBoard.length - 1) {
-			lastPitStoneDropped -= this.theBoard.length;
+			lastPitStoneDropped -= (this.theBoard.length - 1);
 		}
-
 		int[] stonesAndLastPit = { stonesInPit, lastPitStoneDropped };
-		System.out.println("Computer last pit is " + lastPitStoneDropped);
 
 		return stonesAndLastPit;
 	}
