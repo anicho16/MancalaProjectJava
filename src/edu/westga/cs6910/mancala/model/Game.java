@@ -53,7 +53,9 @@ public class Game implements Observable {
 
 	/**
 	 * Distributes the stones located in pitNumber to all subsequent pits, one at a
-	 * time in counter-clockwise order
+	 * time in counter-clockwise order. Checks if the last stone is dropped into an
+	 * empty pit and is on the player's side of the board, the player takes all the
+	 * stones in the opponents opposite side pit
 	 * 
 	 * @param pitNumber The pit number where the stones are to be taken
 	 */
@@ -65,6 +67,7 @@ public class Game implements Observable {
 		int[] stonesAndLastPit = { 0, 0 };
 		int stonesLeft = this.theBoard[pitNumber];
 		int lastPitStoneDropped = 0;
+		boolean mySideOfTheBoard = false;
 
 		if (currentPlayer.equals(this.theHuman)) {
 			while (stonesLeft > 0) {
@@ -72,6 +75,7 @@ public class Game implements Observable {
 				stonesLeft = stonesAndLastPit[0];
 				lastPitStoneDropped = stonesAndLastPit[1];
 			}
+
 		} else {
 			while (stonesLeft > 0) {
 				stonesAndLastPit = this.distributeComputerStones(pitNumber, this.theBoard[pitNumber]);
@@ -81,7 +85,16 @@ public class Game implements Observable {
 		}
 		this.theBoard[pitNumber] = 0;
 
-		if (this.theBoard[lastPitStoneDropped] == 1 && lastPitStoneDropped != this.theBoard.length - 1
+		if (currentPlayer.equals(this.theHuman) && lastPitStoneDropped >= 0
+				&& lastPitStoneDropped < this.theBoard.length / 2) {
+			mySideOfTheBoard = true;
+		} else if (currentPlayer.equals(this.theComputer) && lastPitStoneDropped >= this.theBoard.length / 2
+				&& lastPitStoneDropped < this.theBoard.length) {
+			mySideOfTheBoard = true;
+		}
+
+		if (mySideOfTheBoard && this.theBoard[lastPitStoneDropped] == 1
+				&& lastPitStoneDropped != this.theBoard.length - 1
 				&& lastPitStoneDropped != this.theBoard.length / 2 - 1) {
 			this.takeStonesAcrossFromLastPit(lastPitStoneDropped);
 		}
