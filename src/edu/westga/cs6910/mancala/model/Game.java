@@ -59,30 +59,31 @@ public class Game implements Observable {
 		if (pitNumber < 0) {
 			throw new IllegalArgumentException("Pit number cannot be negative");
 		}
-
 		Player currentPlayer = this.currentPlayerObject.getValue();
-		int stonesLeft = 0;
+		int[] stonesAndLastPit = {0, 0};
+		int stonesLeft = this.theBoard[pitNumber];
+		int lastPitStoneDropped = 0;
 
 		if (currentPlayer.equals(this.theHuman)) {
-			stonesLeft = this.distributeHumanStones(pitNumber, this.theBoard[pitNumber]);
-
 			while (stonesLeft > 0) {
-				stonesLeft = this.distributeHumanStones(pitNumber, stonesLeft);
+				stonesAndLastPit = this.distributeHumanStones(pitNumber, this.theBoard[pitNumber]);
+				stonesLeft = stonesAndLastPit[0];
+				lastPitStoneDropped = stonesAndLastPit[1];
 			}
 		} else {
-			stonesLeft = this.distributeComputerStones(pitNumber, this.theBoard[pitNumber]);
-
 			while (stonesLeft > 0) {
-				stonesLeft = this.distributeComputerStones(pitNumber, stonesLeft);
+				stonesAndLastPit = this.distributeComputerStones(pitNumber, this.theBoard[pitNumber]);
+				stonesLeft = stonesAndLastPit[0];
+				lastPitStoneDropped = stonesAndLastPit[1];
 			}
 		}
-
 		this.theBoard[pitNumber] = 0;
 	}
 
-	private int distributeHumanStones(int pitNumber, int stonesInPit) {
+	private int[] distributeHumanStones(int pitNumber, int stonesInPit) {
 		int pitIncrease = 1;
 		int wrapper = pitNumber;
+		int lastPitStoneDropped = pitNumber;
 
 		if (wrapper < this.theBoard.length - 2) {
 			while (wrapper < this.theBoard.length - 2 && stonesInPit > 0) {
@@ -90,26 +91,31 @@ public class Game implements Observable {
 				this.theBoard[pitNumber + pitIncrease] += 1;
 				pitIncrease++;
 				stonesInPit--;
+				lastPitStoneDropped++;
 			}
 		}
-
 		pitIncrease = 0;
-
 		if (wrapper == this.theBoard.length - 2 && stonesInPit > 0) {
 			while (wrapper > 0 && stonesInPit > 0) {
 				this.theBoard[pitIncrease] += 1;
 				pitIncrease++;
 				stonesInPit--;
 				wrapper--;
+				lastPitStoneDropped++;
 			}
 		}
+		while (lastPitStoneDropped > this.theBoard.length - 1) {
+			lastPitStoneDropped -= this.theBoard.length;
+		}
+		int[] stonesAndLastPit = {stonesInPit, lastPitStoneDropped};
 
-		return stonesInPit;
+		return stonesAndLastPit;
 	}
 
-	private int distributeComputerStones(int pitNumber, int stonesInPit) {
+	private int[] distributeComputerStones(int pitNumber, int stonesInPit) {
 		int pitIncrease = 1;
 		int wrapper = pitNumber;
+		int lastPitStoneDropped = pitNumber;
 
 		if (wrapper < this.theBoard.length - 1) {
 			while (wrapper < this.theBoard.length - 1 && stonesInPit > 0) {
@@ -117,29 +123,34 @@ public class Game implements Observable {
 				this.theBoard[pitNumber + pitIncrease] += 1;
 				pitIncrease++;
 				stonesInPit--;
+				lastPitStoneDropped++;
 			}
 		}
-
 		pitIncrease = 0;
 		wrapper = 0;
-
 		while (wrapper < this.theBoard.length / 2 - 1 && stonesInPit > 0) {
 			this.theBoard[pitIncrease] += 1;
 			pitIncrease++;
 			stonesInPit--;
 			wrapper++;
+			lastPitStoneDropped++;
 		}
-
 		pitIncrease++;
-
 		while (wrapper > 0 && stonesInPit > 0) {
 			this.theBoard[pitIncrease] += 1;
 			pitIncrease++;
 			stonesInPit--;
 			wrapper--;
+			lastPitStoneDropped++;
 		}
+		while (lastPitStoneDropped > this.theBoard.length - 1) {
+			lastPitStoneDropped -= this.theBoard.length;
+		}
+		
+		int[] stonesAndLastPit = {stonesInPit, lastPitStoneDropped};
+		System.out.println("Computer last pit is " + lastPitStoneDropped);
 
-		return stonesInPit;
+		return stonesAndLastPit;
 	}
 
 	/**
