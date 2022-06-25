@@ -34,6 +34,7 @@ public class MancalaPane extends BorderPane {
 	private ComputerPane pnComputerPlayer;
 	private StatusPane pnGameInfo;
 	private Pane pnChooseFirstPlayer;
+	private PitChooserPane pnStoneChooser;
 
 	/**
 	 * Creates a pane object to provide the view for the specified Game model
@@ -50,6 +51,7 @@ public class MancalaPane extends BorderPane {
 		this.pnContent = new GridPane();
 
 		this.addMenu();
+		this.addPitChooserPane();
 		this.addFirstPlayerChooserPane(theGame);
 		this.addComputerPane();
 		this.addHumanPane();
@@ -57,6 +59,7 @@ public class MancalaPane extends BorderPane {
 
 		this.setCenter(this.pnContent);
 	}
+
 
 	private void addMenu() {
 		BorderPane root = new BorderPane();
@@ -117,13 +120,23 @@ public class MancalaPane extends BorderPane {
 		gameMenu.getItems().addAll(exitMenuItem);
 		return gameMenu;
 	}
+	
+	private void addPitChooserPane() {
+		HBox pitChoiceBox = new HBox();
+		pitChoiceBox.setAlignment(Pos.CENTER);
+		pitChoiceBox.getStyleClass().add("pane-border");
+		this.pnStoneChooser = new PitChooserPane(this.theGame);
+		pitChoiceBox.getChildren().add(this.pnStoneChooser);
+		
+		this.pnContent.add(pitChoiceBox, 0, 1);
+	}
 
 	private void addFirstPlayerChooserPane(Game theGame) {
 		HBox topBox = new HBox();
 		topBox.getStyleClass().add("pane-border");
 		this.pnChooseFirstPlayer = new NewGamePane(theGame);
 		topBox.getChildren().add(this.pnChooseFirstPlayer);
-		this.pnContent.add(topBox, 0, 1);
+		this.pnContent.add(topBox, 0, 2);
 	}
 
 	private void addComputerPane() {
@@ -132,7 +145,7 @@ public class MancalaPane extends BorderPane {
 		this.pnComputerPlayer = new ComputerPane(this.theGame);
 		computerBox.getChildren().add(this.pnComputerPlayer);
 
-		this.pnContent.add(computerBox, 0, 2);
+		this.pnContent.add(computerBox, 0, 3);
 	}
 
 	private void addHumanPane() {
@@ -141,7 +154,7 @@ public class MancalaPane extends BorderPane {
 		this.pnHumanPlayer = new HumanPane(this.theGame);
 		humanBox.getChildren().add(this.pnHumanPlayer);
 
-		this.pnContent.add(humanBox, 0, 3);
+		this.pnContent.add(humanBox, 0, 4);
 	}
 
 	private void addStatusPane() {
@@ -151,7 +164,7 @@ public class MancalaPane extends BorderPane {
 		this.pnGameInfo = new StatusPane(this.theGame);
 		statusBox.getChildren().add(this.pnGameInfo);
 
-		this.pnContent.add(statusBox, 0, 4);
+		this.pnContent.add(statusBox, 0, 5);
 	}
 
 	/*
