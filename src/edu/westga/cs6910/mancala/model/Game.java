@@ -128,22 +128,27 @@ public class Game implements Observable {
 		Player currentPlayer = this.currentPlayerObject.getValue();
 		int counter = 0;
 		int pitAcrossFrom = 0;
+		int playerStore = 0;
 
 		if (currentPlayer.equals(this.theComputer)) {
 			counter = lastPitStoneDropped - (this.theBoard.length / 2 - 1);
 			pitAcrossFrom = Math.abs(counter * 2 - lastPitStoneDropped);
+			playerStore = this.theBoard.length - 1;
 		} else {
 			counter = this.theBoard.length / 2;
 			int acrossCalculation = (counter - 1) * 2;
 			pitAcrossFrom = Math.abs(lastPitStoneDropped - acrossCalculation);
+			playerStore = this.theBoard.length / 2 - 1;
 		}
 
 		Alert tookExtraStones = new Alert(AlertType.INFORMATION);
-		tookExtraStones.setContentText("You landed in an empty pit on your side of the board");
+		tookExtraStones.setContentText(
+				"You landed in an empty pit on your side of the board. Move this stone and the stones in the opposite pit to your store.");
 		tookExtraStones.show();
 
-		this.theBoard[lastPitStoneDropped] += this.theBoard[pitAcrossFrom];
+		this.theBoard[playerStore] += this.theBoard[lastPitStoneDropped] + this.theBoard[pitAcrossFrom];
 		this.theBoard[pitAcrossFrom] = 0;
+		this.theBoard[lastPitStoneDropped] = 0;
 	}
 
 	private int[] distributeHumanStones(int pitNumber, int stonesInPit) {
