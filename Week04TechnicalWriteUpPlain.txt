@@ -1,0 +1,36 @@
+Amber Nicholas
+CS6910: Mancala Project
+
+4 point changes:
+1. Description of Change: Implemented the standard Mancala rule that says if the last stone you place is in an empty pit on your side of the board, you will capture (move to your store) any stones in the corresponding pit on the opposite side of the board. Included alert that lets the user know what just happened.
+
+Description of code changed to implement change:
+I needed to know the last pit number that a stone was dropped into. In order to get the last pit that stones were dropped into, I changed the private helper methods distributeHumanStones and distributeComputerStones to send back not only the stones left to be distributed but also the last pit number the most recent stone was dropped into. The methods now return an array with two pieces of information instead of one.  
+I then added private takeStonesAcrossFromLastPit method in Game class. After the distributeStonesFrom completes all tasks, it then looks via private helper method checkIfMySideOfTheBoard which is a series of if statements to see if the last stone was dropped on the current player’s side of the board. This is determined by seeing if the last pit is on the first half of the board or the second half of the board. If yes, takeStonesAcrossFromLastPit is called. 
+The new method begins by calculating the pit that is located across from the current player’s pit. It then alerts the player of the special case scenario. It then adds the stones in the pit number across from it to the pit on the player’s side of the board and takes all those stones and adds them to the players mancala. The pit it landed in and the pit across from it are both reset to zero stones. 
+
+Rationale behind implementation:
+The easiest way to obtain the information regarding the pit the last stone was dropped into was to utilize code that was already able to calculate this: private helper methods that distribute human or computer stones. These method were already in place keeping track of similar information and were easily utilized to then return the additional piece of info regarding the last pit a stone was dropped into.
+I believe that adding an additional private helper method for checkIfMySideOfTheBoard and takeStonesAcrossFromLastPit to perform these tasks was necessary due to the length of the additional code needed and the fact that they were providing additional, separate functionalities.
+
+2. Description of change: Implement the standard Mancala rules that says if the last stone you place is in your store, you get to go again.  Included alert that lets the user know what just happened.
+
+Description of code changed to implement change:
+At end of distributeStonesFrom method, I determined if it is the player’s mancala that the last stone lands in using an if statement and variables that were already calculated in the distributeStonesFrom method: current player and lastPitStoneDropped.
+I then added instance variable landedInMancala, so that swapWhoseTurn had access to the information regarding if the player landed in their own Mancala.
+I made swapWhoseTurn method check to see if landedInMancala was true. If no, swap the turn. If yes, do not swap the turn and alert the player of the special case. 
+I reinitialized landedInMancala to be false at the beginning of each distributeStonesFromMancala method run, so this would never falsely be true. 
+
+Rationale behind implementation:
+The distributeStonesFrom method already had the variables included that I needed to determine if the last stone landed in the player’s mancala. Therefore, adding code to this method eliminated recalculating information. 
+I added the private helper method checkIfLandedInManaca to the end of the other method due to this determining a separate functionality and should therefore be in its own code block.
+2 point Changes:
+
+3. Description of change: Include a way to set the number of stones per pit at the start of the game
+
+Description of code changed to implement change:
+A new pane was added called PitChooserPane. This pane included a combo box which gave the user the ability to choose from an array of the starting number of stones: 1-5. 
+A new instance variable startingStonesInPit was added in the Game class with a getter and setter. The event listener on the comboBox uses the setter to set the starting number of stones to the index of the array item plus one. I then changed the resetBoard method in the Game class to set the starting number of stones to the instance variable instead of to a hard coded value.
+
+Rationale behind implementation:
+Because this was a new pane with new functionality, I decided to follow the already developed pattern of having a new class for each section of the MancalaPane. I chose the combo box because I wanted to be in control of what the user entered as a value. Because I needed an int value and I did not want the user to choose a large number of stones, I felt the comboBox achieved the result with the least amount of code to control the user’s input. I chose the instance variable setter as this was the easiest way to let the Game class know what number of starting stones the user had chosen. 
