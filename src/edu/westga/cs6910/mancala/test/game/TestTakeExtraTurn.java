@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 package edu.westga.cs6910.mancala.test.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,25 +8,26 @@ import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
 
 /**
- * Test setStartingStonesInPit method of Game class
+ * Test DistrubuteStonesFrom and Determining winner in Game class
  * 
  * @author Amber Nicholas
- * @version 6.26.22
+ * @version 6.25.22
  *
  */
-public class TestSetStartingStones {
+public class TestTakeExtraTurn {
 	private Game newGame = new Game();
 	private HumanPlayer humanPlayer1 = new HumanPlayer("human", this.newGame);
 
 	/**
-	 * Test getting number of stones in initial pit after setting manually
+	 * Test current player is still the human after human takes a turn and lands in own
+	 * Mancala
 	 */
 	@Test
-	public void testSetInitialStonesInPit() {
-		this.newGame.setStartingStonesInPit(4);
+	public void testWinnerWhenComputerHasMoreStoresAtGameEnd() {
 		this.newGame.startNewGame(this.humanPlayer1);
+		this.newGame.play(2);
 
-		assertEquals(4, this.newGame.getStones(0));
+		assertEquals(this.humanPlayer1, this.newGame.getCurrentPlayer());
 	}
 
 }
