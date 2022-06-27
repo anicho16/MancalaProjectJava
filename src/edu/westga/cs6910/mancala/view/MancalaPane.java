@@ -8,16 +8,19 @@ import edu.westga.cs6910.mancala.model.strategies.RandomStrategy;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
 /**
  * Defines a GUI for the Mancala game. Started by CS6910. Fill your name into
@@ -58,6 +61,16 @@ public class MancalaPane extends BorderPane {
 		this.addStatusPane();
 
 		this.setCenter(this.pnContent);
+	}
+
+	private void showRulesAlerts() {
+		Alert tookExtraStonesOrTurn = new Alert(AlertType.INFORMATION);
+		tookExtraStonesOrTurn
+				.setContentText("Special Rule: If your last stone lands in an empty pit on your side of the board, "
+						+ "move the stone and the stones in the opposite pit to your Mancala (store).\r\r"
+						+ "Special Rule: If your last stone lands in your Mancala, take another turn.");
+		tookExtraStonesOrTurn.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		tookExtraStonesOrTurn.show();
 	}
 
 	private void addMenu() {
@@ -217,6 +230,7 @@ public class MancalaPane extends BorderPane {
 				MancalaPane.this.pnComputerPlayer.setDisable(false);
 				MancalaPane.this.pnChooseFirstPlayer.setDisable(true);
 				MancalaPane.this.pnStoneChooser.setDisable(true);
+				MancalaPane.this.showRulesAlerts();
 				MancalaPane.this.theGame.startNewGame(NewGamePane.this.theComputer);
 			}
 		}
@@ -234,6 +248,7 @@ public class MancalaPane extends BorderPane {
 				MancalaPane.this.pnHumanPlayer.setDisable(false);
 				MancalaPane.this.pnChooseFirstPlayer.setDisable(true);
 				MancalaPane.this.pnStoneChooser.setDisable(true);
+				MancalaPane.this.showRulesAlerts();
 				MancalaPane.this.theGame.startNewGame(NewGamePane.this.theHuman);
 			}
 		}

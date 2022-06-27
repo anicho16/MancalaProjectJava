@@ -141,11 +141,6 @@ public class Game implements Observable {
 			playerStore = this.theBoard.length / 2 - 1;
 		}
 
-		Alert tookExtraStones = new Alert(AlertType.INFORMATION);
-		tookExtraStones.setContentText(
-				"You landed in an empty pit on your side of the board. Move this stone and the stones in the opposite pit to your store.");
-		tookExtraStones.show();
-
 		this.theBoard[playerStore] += this.theBoard[lastPitStoneDropped] + this.theBoard[pitAcrossFrom];
 		this.theBoard[pitAcrossFrom] = 0;
 		this.theBoard[lastPitStoneDropped] = 0;
@@ -361,9 +356,6 @@ public class Game implements Observable {
 		} else if (this.currentPlayerObject.getValue() == this.theHuman && !this.landedInMancala) {
 			this.currentPlayerObject.setValue(this.theComputer);
 		} else {
-			Alert landedInOwnMancala = new Alert(AlertType.INFORMATION);
-			landedInOwnMancala.setContentText("Your last stone landed in your Mancala. Take another turn.");
-			landedInOwnMancala.show();
 			Player temp = this.currentPlayerObject.getValue();
 			this.currentPlayerObject.setValue(this.theComputer);
 			this.currentPlayerObject.setValue(this.theHuman);
