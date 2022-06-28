@@ -20,6 +20,7 @@ public class Game implements Observable {
 	private ComputerPlayer theComputer;
 	private int startingStonesInPit;
 	private boolean landedInMancala;
+	private String specialMessage;
 
 	private Player theWinner;
 	private boolean isGameOver;
@@ -33,6 +34,7 @@ public class Game implements Observable {
 		this.theComputer = new ComputerPlayer(this);
 		this.startingStonesInPit = 1;
 		this.landedInMancala = false;
+		this.specialMessage = "";
 
 		this.currentPlayerObject = new SimpleObjectProperty<Player>();
 
@@ -138,6 +140,8 @@ public class Game implements Observable {
 			pitAcrossFrom = Math.abs(lastPitStoneDropped - acrossCalculation);
 			playerStore = this.theBoard.length / 2 - 1;
 		}
+		
+		this.specialMessage = "Your last stone landed in an empty pit. Take the last stone and the stones across into your Mancala.";
 
 		this.theBoard[playerStore] += this.theBoard[lastPitStoneDropped] + this.theBoard[pitAcrossFrom];
 		this.theBoard[pitAcrossFrom] = 0;
@@ -272,6 +276,14 @@ public class Game implements Observable {
 		}
 		return this.theBoard[pitNumber];
 	}
+	
+	/**
+	 * Accessor for specialMessage indicating if a special rule happened
+	 * @return special Message
+	 */
+	public String getSpecialMessage() {
+		return this.specialMessage;
+	}
 
 	/**
 	 * Conducts a move in the game, allowing the appropriate Player to take a turn.
@@ -284,6 +296,7 @@ public class Game implements Observable {
 	 * @ensures !whoseTurn().equals(whoseTurn()@prev)
 	 */
 	public void play(int pitChoice) {
+		this.specialMessage = "";
 		Player currentPlayer = this.currentPlayerObject.getValue();
 		currentPlayer.takeTurn(pitChoice);
 
@@ -355,6 +368,7 @@ public class Game implements Observable {
 			this.currentPlayerObject.setValue(this.theComputer);
 		} else {
 			Player temp = this.currentPlayerObject.getValue();
+			this.specialMessage = "Your last stone landed in your Mancala. Take another turn!";
 			this.currentPlayerObject.setValue(this.theComputer);
 			this.currentPlayerObject.setValue(this.theHuman);
 			this.currentPlayerObject.setValue(temp);
